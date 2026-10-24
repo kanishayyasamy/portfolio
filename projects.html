@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | Kanishka Portfolio</title>
+<style>
+  :root {
+    --page-bg: #fff8f7;
+    --panel-bg: #ffffff;
+    --card-bg: #fff9f8;
+    --text: #17243a;
+    --muted: #29364a;
+    --border: #eee5e3;
+    --pink: #e875a8;
+    --pink-dark: #c94f86;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+  }
+
+  .page-content {
+    width: min( calc(100% - 7%), 1680px );
+    margin: 44px auto 28px;
+  }
+
+  .panel {
+    background: var(--panel-bg);
+    border-radius: 24px;
+    padding: clamp(30px, 4.8vw, 82px) clamp(24px, 5.2vw, 90px);
+    min-height: 610px;
+    animation: panelIn .65s ease both;
+  }
+
+  h2 {
+    font-size: clamp(28px, 2.4vw, 40px);
+    line-height: 1.2;
+    margin: 0 0 30px;
+    font-weight: 700;
+    letter-spacing: -.5px;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 27px;
+  }
+
+  .filters button {
+    font: inherit;
+    font-size: 16px;
+    color: var(--text);
+    background: var(--card-bg);
+    border: 1px solid #d9d0cf;
+    border-radius: 12px;
+    padding: 14px 22px;
+    cursor: pointer;
+    transition: background .22s ease, color .22s ease, transform .22s ease;
+  }
+  .filters button:hover { transform: translateY(-2px); }
+  .filters button.active {
+    background: var(--pink);
+    border-color: var(--pink);
+    color: #fff;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .project {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px 25px 26px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    animation: cardIn .55s ease both;
+  }
+  .project:nth-child(2) { animation-delay: .08s; }
+  .project:nth-child(3) { animation-delay: .16s; }
+  .project:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(181, 92, 132, .10);
+    border-color: #f0c7d9;
+  }
+
+  .emoji { font-size: 42px; line-height: 1.2; margin: 3px 0 19px; }
+  h3 { font-size: 22px; line-height: 1.3; margin: 0 0 16px; font-weight: 700; }
+  .project p {
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 0 0 20px;
+    color: var(--muted);
+  }
+  .project small {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: auto;
+    color: #18263c;
+  }
+  .github-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--pink-dark);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .2s ease, transform .2s ease;
+  }
+  .github-link:hover { color: #9f2f63; transform: translateX(4px); }
+
+  footer {
+    text-align: center;
+    color: #6e6870;
+    font-size: 14px;
+    padding: 0 16px 24px;
+  }
+  footer p { margin: 8px 0; }
+
+  .project[hidden] { display: none; }
+
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    .page-content { width: calc(100% - 32px); margin-top: 20px; }
+    .panel { min-height: auto; padding: 34px 28px; }
+    .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .page-content { width: calc(100% - 20px); margin: 10px auto 20px; }
+    .panel { border-radius: 18px; padding: 28px 18px; }
+    h2 { margin-bottom: 24px; }
+    .filters { gap: 8px; }
+    .filters button { padding: 11px 16px; }
+    .projects-grid { grid-template-columns: 1fr; gap: 16px; }
+    .project { min-height: 0; padding: 24px 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="page-content">
+  <section class="panel" id="projects">
+    <h2>My Projects 💗</h2>
+
+    <div class="filters" aria-label="Filter projects">
+      <button class="active" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="web" aria-pressed="false">Web</button>
+      <button type="button" data-filter="creative" aria-pressed="false">Creative</button>
+    </div>
+
+    <div class="projects-grid">
+      <article class="project" data-category="web">
+        <div class="emoji" aria-hidden="true">🍓</div>
+        <h3>Recipe Finder</h3>
+        <p>A website concept that helps users explore recipes and discover interesting dishes.</p>
+        <small>HTML • CSS • JavaScript</small>
+        <a class="github-link" href="https://github.com/softboyai/Recipe-finder" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+      </article>
+
+      <article class="project" data-category="web">
+        <div class="emoji" aria-hidden="true">🛒</div>
+        <h3>Retail Billing System</h3>
+        <p>• Records product details, quantities and prices for retail purchases.<br><br>• Calculates the total bill and generates accurate customer bills.</p>
+        <small>Java • Database Management</small>
+        <a class="github-link" href="https://github.com/kanishayyasamy/java-project" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+      </article>
+
+      <article class="project" data-category="creative">
+        <div class="emoji" aria-hidden="true">🎨</div>
+        <h3>Creative Ideas</h3>
+        <p>A creative space for collecting ideas, exploring designs and expressing imagination.</p>
+        <small>Creativity • Design</small>
+        <a class="github-link" href="https://github.com/trananhtuat/creative-portfolio-website" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Made with 💗 by Kanishka</p>
+  <p>© <span id="year"></span> Kanishka. All rights reserved.</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const filterButtons = document.querySelectorAll(".filters button");
+  const projects = document.querySelectorAll(".project");
+
+  filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
+
+      filterButtons.forEach(item => {
+        const selected = item === button;
+        item.classList.toggle("active", selected);
+        item.setAttribute("aria-pressed", String(selected));
+      });
+
+      projects.forEach(project => {
+        project.hidden = filter !== "all" && project.dataset.category !== filter;
+      });
+    });
+  });
+</script>
+</body>
+</html>
